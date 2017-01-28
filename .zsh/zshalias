@@ -14,7 +14,8 @@ alias lvserv='php artisan serv --host=104.236.201.11 --port=8000'
 alias mkdir='mkdir -p'
 alias rollup='gulp rollup'
 alias v='$VISUAL'
-alias zs='source ~/.zshrc &&  rsync -u -v ~/.zshrc ~/.shell/.zshrc' # refresh zsh dotfile
+alias zs='source ~/.zshrc'
+alias zsync='rsync -u -v ~/.zshrc ~/.shell/.zshrc'
 
 ## application aliases
 alias gulp='sudo gulp'
