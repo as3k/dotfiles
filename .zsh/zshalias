@@ -1,0 +1,38 @@
+## location aliases
+alias udv='cd ~/www/p/udemy-vue'
+alias pv2='cd ~/www/p/portfolio/wp-content/themes/pv2'
+
+## unix aliases
+alias c='clear'
+alias e='$EDITOR'
+alias lA='ls -A'
+alias less='gulp less'
+alias ln='ln -v'
+alias ll='ls -al'
+alias lp='ls -ap'
+alias lvserv='php artisan serv --host=104.236.201.11 --port=8000'
+alias mkdir='mkdir -p'
+alias rollup='gulp rollup'
+alias v='$VISUAL'
+alias zs='source ~/.zshrc &&  rsync -u -v .zshrc .shell/.zshrc' # refresh zsh dotfile
+
+## application aliases
+alias gulp='sudo gulp'
+
+## git specific aliases
+alias gi='git init'
+alias gpsu='git push --set-upstream'
+alias grao='git remote add origin'
+alias grurl='git remote get-url --all'
+alias add='git add .'
+alias branch='git branch'
+alias branchD='git branch -D'
+alias checkout='git checkout'
+alias commit='git commit -m'
+alias diff='git diff'
+alias log='git log'
+alias merge='git merge'
+alias push='git push'
+alias pull='git pull'
+alias stash='git stash save'
+alias stat='git status'
