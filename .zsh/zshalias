@@ -14,7 +14,7 @@ alias lvserv='php artisan serv --host=104.236.201.11 --port=8000'
 alias mkdir='mkdir -p'
 alias rollup='gulp rollup'
 alias v='$VISUAL'
-alias zs='source ~/.zshrc &&  rsync -u -v .zshrc .shell/.zshrc' # refresh zsh dotfile
+alias zs='source ~/.zshrc &&  rsync -u -v ~/.zshrc ~/.shell/.zshrc' # refresh zsh dotfile
 
 ## application aliases
 alias gulp='sudo gulp'
@@ -36,3 +36,4 @@ alias push='git push'
 alias pull='git pull'
 alias stash='git stash save'
 alias stat='git status'
+alias token='cat ~/.pitoken--gh'
