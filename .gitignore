@@ -1,1 +1,3 @@
 .zshrc.full
+.vim/autoload
+.vim/bundle
