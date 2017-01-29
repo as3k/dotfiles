@@ -15,6 +15,9 @@ alias mkdir='mkdir -p'
 alias rollup='gulp rollup'
 alias v='$VISUAL'
 alias zs='source ~/.zshrc'
+
+## sync vim and zsh dotfiles to repo 
+alias vsync='rsync -u -v ~/.vimrc ~/.shell/.vim/.vimrc'
 alias zsync='rsync -u -v ~/.zshrc ~/.shell/.zshrc'
 
 ## application aliases
@@ -37,4 +40,4 @@ alias push='git push'
 alias pull='git pull'
 alias stash='git stash save'
 alias stat='git status'
-alias token='cat ~/.pitoken--gh'
+alias token='cat ~/.shell/.pitoken--gh'
