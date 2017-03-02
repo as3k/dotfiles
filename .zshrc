@@ -23,11 +23,13 @@ fi
 # Add support for ssh-agent
 zstyle :omz:plugins:ssh-agent identities id_rsa
 
-
+# Laravel server start function
 function lvserver() {
-    if [ "$HOST" = "dev.zacharyguerrero.com" ]; then
+    if [ "$HOST" = "dev.zacharyguerrero.com" ]; 
+    then
         php artisan serv --host=$DIP --port=8000
-    elif [ "$HOST" = "helios" ]; then 
+    elif [ "$HOST" = "helios" ]; 
+    then 
         php artisan serv --host=$IP --port=8000
     else
         print "$HOST"
