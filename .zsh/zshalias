@@ -1,3 +1,8 @@
+## Set IP variable for local IP
+IP="$(hostname -I | cut -f2 -d ' ')"
+
+alias ip='echo $IP'
+
 ## location aliases
 alias udv='cd ~/www/p/udemy-vue'
 alias pv2='cd ~/www/p/portfolio/wp-content/themes/pv2'
@@ -10,7 +15,7 @@ alias less='gulp less'
 alias ln='ln -v'
 alias ll='ls -al'
 alias lp='ls -ap'
-alias lvserv='php artisan serv --host=104.236.201.11 --port=8000'
+alias lvserv='php artisan serv --host=$IP --port=8000'
 alias mkdir='mkdir -p'
 alias rollup='gulp rollup'
 alias v='$VISUAL'
