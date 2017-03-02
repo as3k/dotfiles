@@ -24,15 +24,17 @@ fi
 zstyle :omz:plugins:ssh-agent identities id_rsa
 
 # Include composer in $PATH
-export PATH=~/.composer/vendor/bin:$PATH
+export PATH=$HOME/.composer/vendor/bin:$PATH
 
-# Laravel server function
-function lvserver() {
-    if[ "$HOST" = "dev.zacharyguerrero.com" ]; then
-        php artisan serv --host=$DIP --port=8000
-    elif [ "$HOST" = "helios" ]; then
-        php artisan serv --host=$IP --port=8000
-    else
-        print "No host set up for this server"
-    fi
-}
+# laravel server setup
+function lvserver() {                               
+    if [ "$HOST" = "dev.zacharyguerrero.com" ]; 
+    then 
+        php artisan serv --host=$DIP --port=8000    
+    elif [ "$HOST" = "helios" ]; 
+    then               
+        php artisan serv --host=$IP --port=8000     
+    else                                            
+        print "No host set up for this server"      
+    fi                                              
+}                                                   
