@@ -1,5 +1,6 @@
 ## Set IP variable for local IP
 IP="$(hostname -I | cut -f2 -d ' ')"
+DIP="$(hostname -I)"
 
 alias ip='echo $IP'
 
