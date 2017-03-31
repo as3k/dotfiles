@@ -7,6 +7,7 @@ alias ip='echo $IP'
 ## location aliases
 alias udv='cd ~/www/p/udemy-vue'
 alias pv2='cd ~/www/p/portfolio/wp-content/themes/pv2'
+alias lw='cd ~/www/p/lifewhile/wp-content/themes/daze-child'
 
 ## unix aliases
 alias c='clear'
@@ -46,4 +47,8 @@ alias push='git push'
 alias pull='git pull'
 alias stash='git stash save'
 alias stat='git status'
+
+
+## pw things
 alias token='cat ~/.shell/.pitoken--gh'
+alias lwp='cat ~/.shell/.lw'
