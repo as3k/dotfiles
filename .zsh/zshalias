@@ -52,3 +52,6 @@ alias stat='git status'
 ## pw things
 alias token='cat ~/.shell/.pitoken--gh'
 alias lwp='cat ~/.shell/.lw'
+
+## Local Machines
+alias pi='ssh pi@192.168.0.26'
