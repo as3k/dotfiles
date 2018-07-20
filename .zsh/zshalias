@@ -13,13 +13,11 @@ alias lw='cd ~/www/p/lifewhile/wp-content/themes/daze-child'
 alias c='clear'
 alias e='$EDITOR'
 alias lA='ls -A'
-alias less='gulp less'
 alias ln='ln -v'
 alias ll='ls -al'
 alias lp='ls -ap'
 alias lvserv='php artisan serv --host=$IP --port=8000'
 alias mkdir='mkdir -p'
-alias rollup='gulp rollup'
 alias v='$VISUAL'
 alias zs='source ~/.zshrc'
 
@@ -28,7 +26,6 @@ alias vsync='rsync -u -v ~/.vimrc ~/.shell/.vim/.vimrc'
 alias zsync='rsync -u -v ~/.zshrc ~/.shell/.zshrc'
 
 ## application aliases
-alias gulp='sudo gulp'
 
 ## git specific aliases
 alias gi='git init'
@@ -41,17 +38,22 @@ alias branchD='git branch -D'
 alias checkout='git checkout'
 alias commit='git commit -m'
 alias diff='git diff'
-alias log='git log'
+alias glg='git log'
 alias merge='git merge'
 alias push='git push'
 alias pull='git pull'
 alias stash='git stash save'
-alias stat='git status'
+alias gst='git status'
 
 
 ## pw things
-alias token='cat ~/.shell/.pitoken--gh'
-alias lwp='cat ~/.shell/.lw'
+alias token='cat ~/.shell/.token--gh'
 
 ## Local Machines
 alias pi='ssh pi@192.168.0.26'
+
+## Remote Machines
+alias zgdev='ssh zg@ssh.zchry.xyz'
+alias hhyc='ssh hhyandc@shane.asoshared.com'
+alias ziast='ssh nx3h3gt7dkf3@ziast.com'
+alias konadev='ssh -p 2222 konasmom@konaskitchen.com'
