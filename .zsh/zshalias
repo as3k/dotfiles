@@ -25,8 +25,6 @@ alias zs='source ~/.zshrc'
 alias vsync='rsync -u -v ~/.vimrc ~/.shell/.vim/.vimrc'
 alias zsync='rsync -u -v ~/.zshrc ~/.shell/.zshrc'
 
-## application aliases
-
 ## git specific aliases
 alias gi='git init'
 alias gpsu='git push --set-upstream'
@@ -44,16 +42,3 @@ alias push='git push'
 alias pull='git pull'
 alias stash='git stash save'
 alias gst='git status'
-
-
-## pw things
-alias token='cat ~/.shell/.token--gh'
-
-## Local Machines
-alias pi='ssh pi@192.168.0.26'
-
-## Remote Machines
-alias zgdev='ssh zg@ssh.zchry.xyz'
-alias hhyc='ssh hhyandc@shane.asoshared.com'
-alias ziast='ssh nx3h3gt7dkf3@ziast.com'
-alias konadev='ssh -p 2222 konasmom@konaskitchen.com'
