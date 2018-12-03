@@ -20,6 +20,13 @@ else
 	print "404: $HOME/.shell/.zsh/zshalias not found."
 fi
 
+# Import remote aliases if they exist
+if [ -f $HOME/.shell/.zsh/remotes ]; then
+  source $HOME/.shell/.zsh/remotes
+else
+  print "404: $HOME/.shell/.zsh/remotes not found."
+fi
+
 # Add support for ssh-agent
 zstyle :omz:plugins:ssh-agent identities id_rsa
 
