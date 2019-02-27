@@ -1,7 +1,13 @@
 # The prompt
-PROMPT='$(_user_host)$(_python_venv)%{$fg[cyan]%}%c $(git_prompt_info)%{$reset_color%}%{$fg[magenta]%}$(_git_time_since_commit)$(git_prompt_status)${_return_status}➜ '
+PROMPT='$(_user) $(_python_venv)%{$fg[cyan]%}$(git_prompt_info)%{$reset_color%}%{$fg[magenta]%}$(_git_time_since_commit)$(git_prompt_status)${_return_status}${NEWLINE}λ '
 
 local _return_status="%{$fg[red]%}%(?..⍉ )%{$reset_color%}"
+
+# User / Machine
+function _user() {
+  # echo "%{$fg[cyan]%}[%n@%m]%{$reset_color%} "
+  echo "%{$fg[cyan]%}[%{$reset_color%}%{$fg[cyan]%}%n%{$reset_color%}%{$fg[cyan]%}@%{$reset_color%}%{$fg[cyan]%}%m%{$reset_color%} » %{$fg[white]%}%c%{$reset_color%}%{$fg[cyan]%}]%{$reset_color%} "
+}
 
 function _user_host() {
   if [[ -n $SSH_CONNECTION ]]; then
@@ -21,18 +27,27 @@ function _python_venv() {
   fi
 }
 
+NEWLINE=$'\n'
+
+PFX_GREEN="%{fg[green]%}"
+PFX_YELLOW="%{fg[yellow]%}"
+PFX_CYAN="%{fg[cyan]%}"
+PFX_RED="%{fg[red]%}"
+PFX_ORANGE="%{fg[orange]%}" 
+PFX_BLUE="%{fg[blue]%}" 
+RESET="%{$reset_color%}"
+
 ZSH_THEME_GIT_PROMPT_PREFIX="%{$fg[green]%}"
 ZSH_THEME_GIT_PROMPT_SUFFIX="%{$reset_color%}"
 ZSH_THEME_GIT_PROMPT_DIRTY=" %{$fg[red]%}✗%{$reset_color%} "
 ZSH_THEME_GIT_PROMPT_UNTRACKED="%{$fg[white]%}◒ "
-ZSH_THEME_GIT_PROMPT_CLEAN=" "
-ZSH_THEME_GIT_PROMPT_ADDED="%{$fg[cyan]%}✓ "
+ZSH_THEME_GIT_PROMPT_CLEAN=" " 
+ZSH_THEME_GIT_PROMPT_ADDED="%{$fg[cyan]%}✓ " 
 ZSH_THEME_GIT_PROMPT_MODIFIED="%{$fg[yellow]%}△ "
 ZSH_THEME_GIT_PROMPT_DELETED="%{$fg[red]%}✖ "
-ZSH_THEME_GIT_PROMPT_RENAMED="%{$fg[blue]%}➜ "
-ZSH_THEME_GIT_PROMPT_UNMERGED="%{$fg[cyan]%}§ "
-ZSH_THEME_GIT_PROMPT_AHEAD="%{$fg[blue]%}▲ "
-
+ZSH_THEME_GIT_PROMPT_RENAMED="%{$fg[blue]%}➜ " 
+ZSH_THEME_GIT_PROMPT_UNMERGED="%{$fg[cyan]%}§ " 
+ZSH_THEME_GIT_PROMPT_AHEAD="%{$fg[blue]%}▲ " 
 ZSH_THEME_GIT_TIME_SINCE_COMMIT_SHORT="%{$fg[white]%}"
 ZSH_THEME_GIT_TIME_SHORT_COMMIT_MEDIUM="%{$fg[yellow]%}"
 ZSH_THEME_GIT_TIME_SINCE_COMMIT_LONG="%{$fg[red]%}"

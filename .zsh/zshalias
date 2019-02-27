@@ -42,3 +42,6 @@ alias push='git push'
 alias pull='git pull'
 alias stash='git stash save'
 alias gst='git status'
+
+## OS App Specifics
+alias rr='ranger'
