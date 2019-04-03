@@ -2,8 +2,6 @@
 IP="$(hostname -I | cut -f2 -d ' ')"
 DIP="$(hostname -I)"
 
-alias ip='echo $IP'
-
 ## location aliases
 alias udv='cd ~/www/p/udemy-vue'
 alias pv2='cd ~/www/p/portfolio/wp-content/themes/pv2'
@@ -45,3 +43,4 @@ alias gst='git status'
 
 ## OS App Specifics
 alias rr='ranger'
+alias wmip='curl http://ipinfo.io/ip'
