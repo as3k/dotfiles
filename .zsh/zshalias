@@ -25,13 +25,13 @@ alias zsync='rsync -u -v ~/.zshrc ~/.shell/.zshrc'
 
 ## git specific aliases
 alias gi='git init'
-alias gpsu='git push --set-upstream'
+alias gpsu='git push -u'
 alias grao='git remote add origin'
 alias grurl='git remote get-url --all'
 alias add='git add .'
 alias branch='git branch'
 alias branchD='git branch -D'
-alias chk='git checkout'
+alias checkout='git checkout'
 alias commit='git commit -m'
 alias diff='git diff'
 alias merge='git merge'
@@ -44,3 +44,8 @@ alias glog='git log --oneline --decorate --graph --all'
 ## OS App Specifics
 alias rr='ranger'
 alias wmip='curl http://ipinfo.io/ip'
+
+## Python Aliases
+alias python='python3'
+alias pip='pip3'
+alias aeries-ec2="ssh -i ~/.ssh/aeries-design-ec2.pem ubuntu@18.216.51.106"
