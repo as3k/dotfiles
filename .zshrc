@@ -8,7 +8,7 @@ ZSH_THEME="hyperzsh"
  ZSH_CUSTOM=$HOME/.shell/.zsh/custom
 
 # Which plugins would you like to load?
-plugins=(git node npm ssh-agent)
+plugins=(git node npm ssh-agent vscode yarn)
 
 # ZSH Source
 source $ZSH/oh-my-zsh.sh
@@ -31,5 +31,4 @@ fi
 zstyle :omz:plugins:ssh-agent identities id_rsa
 
 # Include composer in $PATH
-export PATH=$HOME/.composer/vendor/bin:$PATH
-
+export PATH=$PATH:`yarn global bin`
