@@ -8,6 +8,8 @@ alias pv2='cd ~/www/p/portfolio/wp-content/themes/pv2'
 alias lw='cd ~/www/p/lifewhile/wp-content/themes/daze-child'
 
 ## unix aliases
+alias upd='sudo apt update'
+alias upg='sudo apt upgrade'
 alias c='clear'
 alias e='$EDITOR'
 alias lA='ls -A'
@@ -49,3 +51,9 @@ alias wmip='curl http://ipinfo.io/ip'
 alias python='python3'
 alias pip='pip3'
 alias aeries-ec2="ssh -i ~/.ssh/aeries-design-ec2.pem ubuntu@18.216.51.106"
+
+## Docker & Docker Compose
+alias dps='docker ps'
+alias dc='docker-compose'
+alias dcu='docker-compose up'
+alias dcd='docker-compose down'
