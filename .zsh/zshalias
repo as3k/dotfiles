@@ -1,59 +1,67 @@
-## Set IP variable for local IP
-IP="$(hostname -I | cut -f2 -d ' ')"
-DIP="$(hostname -I)"
+### --- GENERAL NAVIGATION ---
+alias ..="cd .."
+alias ...="cd ../.."
+alias ....="cd ../../.."
+alias ~="cd ~"
+alias ll="ls -lh"
+alias la="ls -la"
+alias l="ls -CF"
 
-## location aliases
-alias udv='cd ~/www/p/udemy-vue'
-alias pv2='cd ~/www/p/portfolio/wp-content/themes/pv2'
-alias lw='cd ~/www/p/lifewhile/wp-content/themes/daze-child'
+### --- SYSTEM + FILE MANAGEMENT ---
+alias c="clear"
+alias h="history"
+alias mkdirp="mkdir -p"
+alias please="sudo"  # for fun
+alias cpv="rsync -ah --info=progress2"  # copy with progress
 
-## unix aliases
-alias upd='sudo apt update'
-alias upg='sudo apt upgrade'
-alias c='clear'
-alias e='$EDITOR'
-alias lA='ls -A'
-alias ln='ln -v'
-alias ll='ls -al'
-alias lp='ls -ap'
-alias lvserv='php artisan serv --host=$IP --port=8000'
-alias mkdir='mkdir -p'
-alias v='$VISUAL'
-alias zs='source ~/.zshrc'
+### --- EDITORS ---
+alias v="nvim"
 
-## sync vim and zsh dotfiles to repo 
-alias vsync='rsync -u -v ~/.vimrc ~/.shell/.vim/.vimrc'
-alias zsync='rsync -u -v ~/.zshrc ~/.shell/.zshrc'
+### --- NETWORKING ---
+alias myip="curl ifconfig.me"
+alias ports="lsof -i -P -n | grep LISTEN"
+alias flushdns="sudo dscacheutil -flushcache; sudo killall -HUP mDNSResponder"
 
-## git specific aliases
-alias gi='git init'
-alias gpsu='git push -u'
-alias grao='git remote add origin'
-alias grurl='git remote get-url --all'
-alias add='git add .'
-alias branch='git branch'
-alias branchD='git branch -D'
-alias checkout='git checkout'
-alias commit='git commit -m'
-alias diff='git diff'
-alias merge='git merge'
-alias push='git push'
-alias pull='git pull'
-alias stash='git stash save'
-alias gst='git status'
-alias glog='git log --oneline --decorate --graph --all'
+### --- GIT SHORTCUTS ---
+alias gs="git status"
+alias add="git add ."
+alias commit="git commit -m"
+alias gco="git checkout"
+alias branch="git branch"
+alias gd="git diff"
+alias pull="git pull origin"
+alias push="git push origin"
+alias gl="git log --oneline --graph --all"
 
-## OS App Specifics
-alias rr='ranger'
-alias wmip='curl http://ipinfo.io/ip'
+### --- DOCKER / DEV ---
+alias dcu="docker compose up"
+alias dcd="docker compose down"
+alias dcb="docker compose build"
+alias dcl="docker compose logs -f"
+alias dps="docker ps"
+alias ds="docker stop \$(docker ps -q)"
+alias drm="docker rm \$(docker ps -a -q)"
+alias drmi="docker rmi \$(docker images -q)"
 
-## Python Aliases
-alias python='python3'
-alias pip='pip3'
-alias aeries-ec2="ssh -i ~/.ssh/aeries-design-ec2.pem ubuntu@18.216.51.106"
+### --- NPM / NODE / YARN ---
+alias nr="npm run"
+alias ni="npm install"
+alias nis="npm install --save"
+alias nid="npm install --save-dev"
+alias yd="yarn dev"
+alias ys="yarn start"
+alias ya="yarn add"
+alias yis="yarn install --save"
+alias yga="yarn global add"
+alias ygs="yarn global remove"
 
-## Docker & Docker Compose
-alias dps='docker ps'
-alias dc='docker-compose'
-alias dcu='docker-compose up'
-alias dcd='docker-compose down'
+### --- ZSH & CONFIG ---
+alias zc="code ~/.zshrc"
+alias zs="source ~/.zshrc"
+alias za="code ~/.zsh_aliases"
+
+### --- OTHER UTILITIES ---
+alias updatebrew="brew update && brew upgrade && brew cleanup"
+alias serve="python3 -m http.server"  # quick file server
+alias timestamp="date +%s"
+alias epoch="date -r"

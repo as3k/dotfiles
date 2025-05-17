@@ -1,34 +1,26 @@
-# Path to your oh-my-zsh installation.
-  export ZSH=$HOME/.oh-my-zsh
+# --- Prompt & Starship ---
+export STARSHIP_CONFIG="$HOME/.config/starship/starship.toml"
+eval "$(starship init zsh)"
 
-# Set name of the theme to load.
-ZSH_THEME="hyperzsh"
-
-# Would you like to use another custom folder than $ZSH/custom?
- ZSH_CUSTOM=$HOME/.shell/.zsh/custom
-
-# Which plugins would you like to load?
-plugins=(git node npm ssh-agent vscode yarn)
-
-# ZSH Source
-source $ZSH/oh-my-zsh.sh
-
-# Import my aliases if they exist
-if [ -f $HOME/.shell/.zsh/zshalias ]; then
-	source $HOME/.shell/.zsh/zshalias
+# --- Aliases ---
+ZSH_ALIAS="$HOME/.shell/.zsh/zshalias"
+if [ -f "$ZSH_ALIAS" ]; then
+    source "$ZSH_ALIAS"
 else
-	print "404: $HOME/.shell/.zsh/zshalias not found."
+    print "404: $ZSH_ALIAS not found."
 fi
 
-# Import remote aliases if they exist
-if [ -f $HOME/.shell/.zsh/remotes ]; then
-  source $HOME/.shell/.zsh/remotes
-else
-  print "404: $HOME/.shell/.zsh/remotes not found."
-fi
+# --- Node & Yarn ---
+# NVM (Node Version Manager)
+export NVM_DIR="${XDG_CONFIG_HOME:-$HOME/.nvm}/nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
 
-# Add support for ssh-agent
-zstyle :omz:plugins:ssh-agent identities id_rsa
+# Yarn global binaries
+export PATH="$HOME/.yarn/bin:$HOME/.config/yarn/global/node_modules/.bin:$(yarn global bin):$PATH"
 
-# Include composer in $PATH
-export PATH=$PATH:`yarn global bin`
+# --- Applications ---
+# Visual Studio Code command line
+export PATH="/Applications/Visual Studio Code.app/Contents/Resources/app/bin:$PATH"
+
+# Lando
+export PATH="$HOME/.lando/bin:$PATH"

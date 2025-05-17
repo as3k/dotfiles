@@ -1,4 +1,0 @@
-## Add your custom remote locations in this file
-## for example: 
-alias remote='ssh foo@bar'
-alias remote2='ssh bim@bap'
