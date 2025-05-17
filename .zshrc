@@ -10,6 +10,13 @@ else
     print "404: $ZSH_ALIAS not found."
 fi
 
+# --- SSH AGENT ---
+# Start the ssh-agent if not running
+if [ -z "$SSH_AUTH_SOCK" ]; then
+  eval "$(ssh-agent -s)"
+  ssh-add ~/.ssh/id_rsa 2>/dev/null
+fi
+
 # --- Node & Yarn ---
 # NVM (Node Version Manager)
 export NVM_DIR="${XDG_CONFIG_HOME:-$HOME/.nvm}/nvm"
