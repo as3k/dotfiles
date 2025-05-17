@@ -31,6 +31,12 @@ else
   echo "Starship installed."
 fi
 
+# Make zsh the default shell if it's not already
+if [ "$SHELL" != "$(command -v zsh)" ]; then
+  echo "Changing default shell to zsh..."
+  chsh -s "$(command -v zsh)"
+fi
+
 # Backup existing .zshrc if it exists
 if [ -f "$HOME/.zshrc" ]; then
   echo "Backing up existing .zshrc to .zshrc.backup"
@@ -59,7 +65,7 @@ else
   mkdir -p "$HOME/.config/starship"
 fi
 # Symlink starship.toml from current directory to .config/starship
-ln -sf "$(pwd)/starship.toml" "$HOME/.config/starship/starship.toml"
+ln -sf "$(pwd)/starship/starship.toml" "$HOME/.config/starship/starship.toml"
 echo "Symlinked starship.toml to $HOME/.config/starship/starship.toml"
 
 # Check if nvim directory exists in .config
