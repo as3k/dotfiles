@@ -72,6 +72,10 @@ echo "Symlinked starship.toml to $HOME/.config/starship/starship.toml"
 # Check if nvim directory exists in .config
 if [ -d "$HOME/.config/nvim" ]; then
   echo ".config/nvim directory exists in $HOME."
+  mv "$HOME/.config/nvim" "$HOME/.config/nvim.backup"
+  echo "Backing up existing .config/nvim to .config/nvim.backup"
+  echo "Creating new .config/nvim directory..."
+  mkdir -p "$HOME/.config/nvim"
 else
   echo "Creating .config/nvim directory..."
   mkdir -p "$HOME/.config/nvim"
