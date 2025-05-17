@@ -1,8 +1,6 @@
-# Dotfiles & Dev Environment Setup
+# Dotfiles & Dev Env Setup
 
 Welcome to my personal dev setup! This repo holds my go-to configuration for shell, Neovim, and general tooling across macOS and Linux. It’s built for speed, clarity, and zero fuss—whether you’re setting up a fresh machine or just looking to streamline your workflow.
-
----
 
 ## ✨ What’s Included
 
@@ -13,7 +11,7 @@ Welcome to my personal dev setup! This repo holds my go-to configuration for she
 - **Handy CLI aliases** for Git, Docker, network checks, and general productivity
 - A **cross-platform setup script** that works on both macOS and Linux
 
----
+
 
 ## 🗂 Folder Structure
 
@@ -61,7 +59,6 @@ This will:
   ```
 Then type `:Lazy` and hit enter to complete plugin setup.
 
----
 
 ## 🛠 Customizing
 - Aliases: Add or update .zsh/zshalias with your favorite shortcuts
@@ -80,6 +77,6 @@ If something’s off:
 - Check docs for Starship, Neovim, or lazy.nvim
 - Or just comment things out and go step by step—because hey, dotfiles are meant to be hacked
 
----
+
 
 ### Happy hacking 👨‍💻👩‍💻
