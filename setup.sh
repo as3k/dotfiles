@@ -60,6 +60,7 @@ if [ -d "$HOME/.config/starship" ]; then
   echo ".config/starship directory exists in $HOME."
   echo "Backing up existing .config/starship to .config/starship.backup"
   mv "$HOME/.config/starship" "$HOME/.config/starship.backup"
+  mkdir -p "$HOME/.config/starship"
 else
   echo "Creating .config/starship directory..."
   mkdir -p "$HOME/.config/starship"
