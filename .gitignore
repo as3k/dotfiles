@@ -1,7 +1,15 @@
-.zshrc.full
-.vim/autoload
-.vim/bundle
-.pitoken--gh
-.lw
-.token--gh
-.zsh/remotes
+# --- nvim lock ---
+nvim/lazy-lock.json
+
+# --- nvim backup while working ---
+nvim.bak
+
+# --- nvim starter .gitignore ---
+nvim/tt.*
+nvim/.tests
+nvim/doc/tags
+nvim/debug
+nvim/.repro
+nvim/foo.*
+nvim/*.log
+nvim/data
