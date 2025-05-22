@@ -1,3 +1,6 @@
+# --- Auto cd ---
+setopt AUTO_CD
+
 # --- Prompt & Starship ---
 export STARSHIP_CONFIG="$HOME/.config/starship/starship.toml"
 eval "$(starship init zsh)"
