@@ -5,7 +5,7 @@
 if [[ "$OSTYPE" == "linux-gnu"* ]]; then
   # Linux (Debian/Ubuntu)
   sudo apt update && sudo apt install -y \
-    zsh neovim git curl wget nodejs
+    zsh neovim git curl wget nodejs yazi
 elif [[ "$OSTYPE" == "darwin"* ]]; then
   # macOS
   # Check if Homebrew is installed
@@ -16,7 +16,7 @@ elif [[ "$OSTYPE" == "darwin"* ]]; then
   brew update
   brew upgrade
   # Install packages
-  brew install neovim git curl wget node
+  brew install neovim git curl wget node yazi
 else
   echo "Unsupported OS: $OSTYPE"
   exit 1
