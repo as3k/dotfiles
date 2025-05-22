@@ -1,5 +1,6 @@
 #!/bin/bash
 
+# --- UPDATE & UPGRADE ---
 # Detect OS and install packages accordingly
 if [[ "$OSTYPE" == "linux-gnu"* ]]; then
   # Linux (Debian/Ubuntu)
@@ -21,16 +22,7 @@ else
   exit 1
 fi
 
-# Check if Starship is installed
-if command -v starship >/dev/null 2>&1; then
-  echo "Starship is installed."
-else
-  echo "Installing Starship..."
-  # Download and install Starship
-  curl -sS https://starship.rs/install.sh | sh -s -- -y
-  echo "Starship installed."
-fi
-
+# --- ZSH ---
 # Make zsh the default shell if it's not already
 if [ "$SHELL" != "$(command -v zsh)" ]; then
   echo "Changing default shell to zsh..."
@@ -47,6 +39,7 @@ fi
 ln -sf "$(pwd)/.zshrc" "$HOME/.zshrc"
 echo "Symlinked $(pwd)/.zshrc to $HOME/.zshrc"
 
+# --- CONFIG DIRECTORY ---
 # Check if .config directory exists in $HOME
 if [ -d "$HOME/.config" ]; then
   echo ".config directory exists in $HOME."
@@ -55,6 +48,16 @@ else
   mkdir -p "$HOME/.config"
 fi
 
+# --- STARSHIP ---
+# Check if Starship is installed
+if command -v starship >/dev/null 2>&1; then
+  echo "Starship is installed."
+else
+  echo "Installing Starship..."
+  # Download and install Starship
+  curl -sS https://starship.rs/install.sh | sh -s -- -y
+  echo "Starship installed."
+fi
 # Check if .config/starship directory exists
 if [ -d "$HOME/.config/starship" ]; then
   echo ".config/starship directory exists in $HOME."
@@ -69,6 +72,7 @@ fi
 ln -sf "$(pwd)/starship/starship.toml" "$HOME/.config/starship/starship.toml"
 echo "Symlinked starship.toml to $HOME/.config/starship/starship.toml"
 
+# --- NVIM CONFIG ---
 # Check if nvim directory exists in .config
 if [ -d "$HOME/.config/nvim" ]; then
   echo ".config/nvim directory exists in $HOME."
@@ -81,10 +85,11 @@ else
   mkdir -p "$HOME/.config/nvim"
 fi
 # Symlink init.lua from current directory to .config/nvim
-ln -sf "$(pwd)/nvim/init.lua" "$HOME/.config/nvim/init.lua"
-ln -sf "$(pwd)/nvim/lazy-lock.json" "$HOME/.config/nvim/lazy-lock.json"
-echo "Symlinked init.lua to $HOME/.config/nvim/init.lua"
+ln -sf "$(pwd)/nvim" "$HOME/.config/nvim"
+echo "Symlinked $(pwd)/nvim to $HOME/.config/nvim"
 
+# --- COMPLETE ---
+echo "/n/n/n"
 echo "Setup complete. Please restart your terminal or run 'source ~/.zshrc' to apply changes."
 echo "You may need to install additional plugins for Neovim. Check init.lua for details."
 echo "If you encounter any issues, please refer to the documentation for the respective tools."
