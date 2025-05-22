@@ -1,6 +1,3 @@
-# --- nvim lock ---
-nvim/lazy-lock.json
-
 # --- nvim backup while working ---
 nvim.bak
 

@@ -1,11 +1,8 @@
-#!/bin/bash
-
-# --- UPDATE & UPGRADE ---
 # Detect OS and install packages accordingly
 if [[ "$OSTYPE" == "linux-gnu"* ]]; then
   # Linux (Debian/Ubuntu)
   sudo apt update && sudo apt install -y \
-    zsh neovim git curl wget nodejs yazi
+    zsh neovim git curl wget nodejs yazi build-essential
 elif [[ "$OSTYPE" == "darwin"* ]]; then
   # macOS
   # Check if Homebrew is installed
@@ -16,7 +13,7 @@ elif [[ "$OSTYPE" == "darwin"* ]]; then
   brew update
   brew upgrade
   # Install packages
-  brew install neovim git curl wget node yazi
+  brew install neovim git curl wget node yazi build-essential
 else
   echo "Unsupported OS: $OSTYPE"
   exit 1
@@ -95,3 +92,4 @@ echo "You may need to install additional plugins for Neovim. Check init.lua for 
 echo "If you encounter any issues, please refer to the documentation for the respective tools."
 echo "Happy coding!"
 echo "If you want to install the plugins, run :Lazy in Neovim."
+
