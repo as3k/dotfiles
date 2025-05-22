@@ -32,5 +32,8 @@ export PATH="$HOME/.yarn/bin:$HOME/.config/yarn/global/node_modules/.bin:$(yarn 
 # Visual Studio Code command line
 export PATH="/Applications/Visual Studio Code.app/Contents/Resources/app/bin:$PATH"
 
-# Lando
+# --- Lando ----
 export PATH="$HOME/.lando/bin:$PATH"
+
+# --- Homebrew ---
+eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
