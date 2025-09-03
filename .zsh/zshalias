@@ -66,3 +66,8 @@ alias updatebrew="brew update && brew upgrade && brew cleanup"
 alias serve="python3 -m http.server"  # quick file server
 alias timestamp="date +%s"
 alias epoch="date -r"
+
+### --- Updates etc ---   
+alias uu="apt update && apt upgrade -y"
+alias bu="brew update && brew upgrade"
+

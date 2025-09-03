@@ -1,74 +1,32 @@
+"$schema" = 'https://starship.rs/config-schema.json'
 add_newline = false
-format = """$directory$character"""
-right_format = """$all"""
+format = """
+[╭{owo} ](bold green)$username$directory$battery$all$line_break$character"""
 
-[conda]
-symbol = " "
+right_format = """$git_branch$git_state$git_status$time$cmd_duration"""
 
-[directory]
-read_only = " 👀"
-
-[docker_context]
-symbol = " "
+[character]
+success_symbol = '[╰─>](bold green)'
+error_symbol = '[x >](bold red)'
 
 [git_branch]
-symbol = "🌱 "
+format = '[ $symbol$branch]($style) '
+style = 'cyan'
 
-[lua]
-symbol = "💣 "
+[directory]
+format = "[](fg:#a3ca5c bg:none)[$path]($style)[ ](fg:#a3ca5c bg:none)"
+style = "fg:#000000 bg:#a3ca5c"
+truncate_to_repo = false
 
-[memory_usage]
-symbol = "🧠 "
+[username]
+show_always = true
 
-[nodejs]
-symbol = "👹 "
+[time]
+disabled = false
 
-[os.symbols]
-Alpine = " "
-Amazon = " "
-Android = " "
-Arch = " "
-CentOS = " "
-Debian = " "
-DragonFly = " "
-Emscripten = " "
-EndeavourOS = " "
-Fedora = " "
-FreeBSD = " "
-Garuda = "﯑ "
-Gentoo = " "
-HardenedBSD = "ﲊ "
-Illumos = " "
-Linux = " "
-Macos = " "
-Manjaro = " "
-Mariner = " "
-MidnightBSD = " "
-Mint = " "
-NetBSD = " "
-NixOS = " "
-OpenBSD = " "
-openSUSE = " "
-OracleLinux = " "
-Pop = " "
-Raspbian = " "
-Redhat = " "
-RedHatEnterprise = " "
-Redox = " "
-Solus = "ﴱ "
-SUSE = " "
-Ubuntu = " "
-Unknown = " "
-Windows = " "
+[cmd_duration]
+min_time = 0
+disabled = false
 
-[package]
-symbol = " "
-
-[python]
-symbol = "🐍 "
-
-[custom.docker]
-command = "echo 🐳 "
-files = ["Dockerfile", "docker-compose.yml", "docker-compose.yaml"]
-when = """ command -v docker &> /dev/null; exit (echo $?); """
-format = "on [$output]($style) "
+[battery]
+disabled = false
