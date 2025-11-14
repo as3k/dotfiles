@@ -37,3 +37,6 @@ export PATH="$HOME/.lando/bin:$PATH"
 
 # --- Homebrew ---
 eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
+
+# --- Claude ---
+# export PATH="$HOME/.claude/bin:$PATH"
