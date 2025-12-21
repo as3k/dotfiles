@@ -29,16 +29,31 @@ detect_os() {
   fi
 }
 
+# --- INSTALL PACKAGES ON ALPINE ---
+install_packages_alpine() {
+  echo "Installing packages via Alpine package manager (apk)..."
+  
+  apk update
+  apk add --no-cache \
+    bash \
+    curl \
+    wget \
+    git \
+    neovim \
+    nodejs \
+    npm \
+    zsh \
+    yazi \
+    starship
+  
+  echo "All packages installed successfully."
+}
+
 # --- INSTALL SYSTEM PREREQUISITES FOR HOMEBREW ---
 install_system_prerequisites() {
   echo "Installing system prerequisites for Homebrew..."
   
   case "$OS_DISTRO" in
-    alpine)
-      echo "Installing Alpine prerequisites..."
-      apk update
-      apk add --no-cache bash curl git procps build-base
-      ;;
     ubuntu|debian)
       echo "Installing Debian/Ubuntu prerequisites..."
       sudo apt update
@@ -54,6 +69,12 @@ install_system_prerequisites() {
 
 # --- INSTALL HOMEBREW ---
 install_homebrew() {
+  # Skip Homebrew on Alpine - it's not supported with musl libc
+  if [ "$OS_DISTRO" = "alpine" ]; then
+    echo "Skipping Homebrew installation on Alpine Linux (uses native apk package manager)"
+    return 0
+  fi
+  
   if command -v brew >/dev/null 2>&1; then
     echo "Homebrew is already installed."
     return 0
@@ -84,6 +105,12 @@ install_homebrew() {
 
 # --- INSTALL PACKAGES VIA HOMEBREW ---
 install_packages() {
+  # Use Alpine's native package manager on Alpine Linux
+  if [ "$OS_DISTRO" = "alpine" ]; then
+    install_packages_alpine
+    return 0
+  fi
+  
   echo "Installing packages via Homebrew..."
   
   # Update Homebrew
@@ -92,7 +119,7 @@ install_packages() {
   
   # Install packages (using consistent names across all platforms)
   echo "Installing development tools..."
-  brew install neovim git curl wget node zsh yazi
+  brew install neovim git curl wget node zsh yazi starship
   
   echo "All packages installed successfully."
 }
@@ -128,9 +155,12 @@ configure_starship() {
   if command -v starship >/dev/null 2>&1; then
     echo "Starship is already installed."
   else
-    echo "Installing Starship..."
-    curl -sS https://starship.rs/install.sh | sh -s -- -y
-    echo "Starship installed."
+    # Skip installation on Alpine since it's handled by apk
+    if [ "$OS_DISTRO" != "alpine" ]; then
+      echo "Installing Starship..."
+      curl -sS https://starship.rs/install.sh | sh -s -- -y
+      echo "Starship installed."
+    fi
   fi
   
   # Ensure .config directory exists
