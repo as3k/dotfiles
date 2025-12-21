@@ -1,0 +1,33 @@
+# Minimal Alpine/iSH ZSH Configuration
+# Optimized for resource-constrained environments
+
+# --- Auto cd ---
+setopt AUTO_CD
+
+# --- Simple Prompt ---
+# Use a simple prompt instead of starship for performance
+PROMPT='%F{cyan}%n@%m%f:%F{yellow}%~%f%# '
+
+# --- Aliases ---
+# Try multiple possible locations for aliases
+if [ -f "$HOME/.shell/.zsh/zshalias" ]; then
+    source "$HOME/.shell/.zsh/zshalias"
+elif [ -f "$HOME/.zsh/zshalias" ]; then
+    source "$HOME/.zsh/zshalias"
+fi
+
+# --- Basic Path Setup ---
+export PATH="$HOME/.local/bin:$PATH"
+
+# --- Node (if installed) ---
+if command -v node >/dev/null 2>&1; then
+  export PATH="$(npm prefix -g)/bin:$PATH" 2>/dev/null || true
+fi
+
+# --- Git Branch in Prompt (optional, lightweight) ---
+# Uncomment if you want to see git branch in prompt
+# autoload -Uz vcs_info
+# precmd() { vcs_info }
+# zstyle ':vcs_info:git:*' formats '%F{green}(%b)%f '
+# setopt PROMPT_SUBST
+# PROMPT='%F{cyan}%n@%m%f:%F{yellow}%~%f ${vcs_info_msg_0_}%# '

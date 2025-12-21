@@ -42,6 +42,8 @@ The setup script automatically detects your OS and installs the appropriate depe
 
 ## 🚀 Getting Started
 
+### Standard Setup (macOS, Ubuntu, Debian)
+
 1. **Clone the repo:**
    ```sh
    git clone https://github.com/yourusername/dotfiles.git ~/.shell
@@ -56,7 +58,7 @@ The setup script automatically detects your OS and installs the appropriate depe
    The setup script will:
    - Detect your operating system (macOS, Ubuntu, Debian, or Alpine)
    - Install Homebrew if not already present (including Linuxbrew on Linux)
-   - Install development tools via Homebrew: Zsh, Git, Neovim, Node, Yazi, and more
+   - Install development tools via Homebrew: Zsh, Git, Neovim, Node, and more
    - Set up Starship for a beautiful prompt
    - Back up your existing dotfiles and create symlinks for the new ones
    - Configure Zsh, Starship, and Neovim
@@ -71,6 +73,32 @@ The setup script automatically detects your OS and installs the appropriate depe
    nvim
    ```
    Then type `:Lazy` and hit enter to complete plugin setup.
+
+### Minimal Alpine Setup (for iSH or resource-constrained environments)
+
+For Alpine Linux or iSH on iOS, use the lightweight setup:
+
+1. **Clone the repo:**
+   ```sh
+   git clone https://github.com/yourusername/dotfiles.git ~/.shell
+   cd ~/.shell
+   ```
+
+2. **Run the minimal setup:**
+   ```sh
+   sh setup-alpine.sh
+   ```
+
+   This minimal setup:
+   - Installs only essential packages (git, zsh, neovim, curl)
+   - Uses a simple built-in prompt (no Starship for better performance)
+   - Includes all your aliases
+   - Perfect for iSH on iOS or minimal containers
+
+3. **Start using Zsh:**
+   ```sh
+   zsh
+   ```
 
 
 ## 🛠 Customizing
