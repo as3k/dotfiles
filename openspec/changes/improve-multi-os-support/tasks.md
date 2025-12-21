@@ -21,15 +21,20 @@
 - [x] 3.5 Ensure all required dependencies are installed correctly
 
 ## 4. Testing and Validation
-- [ ] 4.1 Test on macOS (existing environment with Homebrew)
-- [ ] 4.2 Test on Ubuntu (fresh install and existing Homebrew install)
-- [ ] 4.3 Test on Alpine Linux container (minimal base image)
-- [ ] 4.4 Test on Debian container
-- [ ] 4.5 Verify all symlinks are created correctly
-- [ ] 4.6 Verify all tools are accessible after installation
-- [ ] 4.7 Verify Homebrew PATH is correctly configured on all platforms
+- [x] 4.1 Test on macOS (existing environment with Homebrew)
+- [x] 4.2 Test on Ubuntu (fresh install and existing Homebrew install)
+- [x] 4.3 Test on Alpine Linux container (minimal base image)
+- [x] 4.4 Test on Debian container
+- [x] 4.5 Verify all symlinks are created correctly
+- [x] 4.6 Verify all tools are accessible after installation
+- [x] 4.7 Verify Homebrew PATH is correctly configured on all platforms
 
 ## 5. Documentation
-- [ ] 5.1 Update readme.md with supported OS list and Homebrew-first approach
-- [ ] 5.2 Add notes about Homebrew on Linux and initial setup time
-- [ ] 5.3 Document any OS-specific prerequisites or caveats
+- [x] 5.1 Update readme.md with supported OS list and Homebrew-first approach
+- [x] 5.2 Add notes about Homebrew on Linux and initial setup time
+- [x] 5.3 Document any OS-specific prerequisites or caveats
+
+## 6. Bug Fixes (Discovered During Testing)
+- [x] 6.1 Fix chsh command failures by adding error handling and /etc/shells updates
+- [x] 6.2 Fix symlink paths by using SCRIPT_DIR instead of $(pwd)
+- [x] 6.3 Add shadow package requirement for Alpine Linux in documentation

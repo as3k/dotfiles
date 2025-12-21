@@ -81,9 +81,11 @@ The setup script automatically detects your OS and installs the appropriate depe
 ## 🧠 Heads-Up
 
 - **Homebrew on Linux**: The first run will install Homebrew/Linuxbrew, which may take a few minutes. Subsequent runs will be much faster.
+- **Alpine Linux**: Uses native package manager (apk) instead of Homebrew for better compatibility with musl libc. Requires `shadow` package for shell changing.
 - **Backups**: Your current .zshrc, Starship config, and Neovim config will be backed up before any changes are made
 - **Neovim LSP**: You may need to install additional language servers depending on what you're working on
 - **Docker-friendly**: Works great in Alpine-based containers for consistent dev environments
+- **Shell Changes**: The script will attempt to change your default shell to Zsh. On some systems, you may need to do this manually with `chsh -s $(which zsh)`.
 - **Idempotent**: Safe to run multiple times - the script detects existing installations
 
 ## 🧰 Troubleshooting
@@ -92,8 +94,9 @@ If something's off:
 
 - **Setup script fails**: Check the output for specific error messages. The script uses `set -e` to exit on first error.
 - **Homebrew not in PATH on Linux**: Make sure to restart your terminal or run `source ~/.zshrc` after setup
-- **Alpine prerequisites**: On minimal Alpine containers, the script will automatically install bash, curl, git, and build tools
+- **Alpine prerequisites**: On minimal Alpine containers, install `git bash shadow` before running setup: `apk add --no-cache git bash shadow`
 - **Permission issues**: Some operations may require sudo (Ubuntu/Debian). Alpine in containers typically runs as root.
+- **Shell not changing**: If `chsh` fails, manually run `chsh -s $(which zsh)` after setup completes. On Debian/Ubuntu, you may need to add Homebrew's zsh path to `/etc/shells` first.
 - Check docs for [Starship](https://starship.rs/), [Neovim](https://neovim.io/), or [lazy.nvim](https://github.com/folke/lazy.nvim)
 
 ## 🐳 Docker Usage
@@ -102,7 +105,18 @@ Perfect for creating consistent development containers:
 
 ```dockerfile
 FROM alpine:latest
-RUN apk add --no-cache git bash
+RUN apk add --no-cache git bash shadow
+RUN git clone https://github.com/yourusername/dotfiles.git ~/.shell
+WORKDIR /root/.shell
+RUN bash setup.sh
+CMD ["/bin/zsh"]
+```
+
+For Ubuntu/Debian containers:
+
+```dockerfile
+FROM ubuntu:latest
+RUN apt-get update && apt-get install -y git sudo
 RUN git clone https://github.com/yourusername/dotfiles.git ~/.shell
 WORKDIR /root/.shell
 RUN bash setup.sh

@@ -2,6 +2,9 @@
 
 set -e  # Exit on error
 
+# Get the directory where this script is located
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+
 # --- OS DETECTION ---
 detect_os() {
   OS_TYPE=""
@@ -131,7 +134,26 @@ configure_zsh() {
   # Make zsh the default shell if it's not already
   if [ "$SHELL" != "$(command -v zsh)" ]; then
     echo "Changing default shell to zsh..."
-    chsh -s "$(command -v zsh)"
+    
+    # Check if chsh command exists
+    if command -v chsh >/dev/null 2>&1; then
+      ZSH_PATH="$(command -v zsh)"
+      
+      # Add zsh to /etc/shells if not present (needed for chsh on some systems)
+      if [ -f /etc/shells ] && ! grep -q "^${ZSH_PATH}$" /etc/shells 2>/dev/null; then
+        echo "Adding ${ZSH_PATH} to /etc/shells..."
+        echo "${ZSH_PATH}" | sudo tee -a /etc/shells >/dev/null 2>&1 || echo "Warning: Could not add zsh to /etc/shells"
+      fi
+      
+      # Try to change shell
+      if chsh -s "${ZSH_PATH}" 2>/dev/null; then
+        echo "Default shell changed to zsh"
+      else
+        echo "Warning: Could not change default shell. You may need to run 'chsh -s ${ZSH_PATH}' manually."
+      fi
+    else
+      echo "Warning: chsh command not found. Skipping shell change. You can manually run 'chsh -s \$(which zsh)' later."
+    fi
   else
     echo "Zsh is already the default shell."
   fi
@@ -142,9 +164,9 @@ configure_zsh() {
     mv "$HOME/.zshrc" "$HOME/.zshrc.backup"
   fi
   
-  # Symlink .zshrc from current directory to home directory
-  ln -sf "$(pwd)/.zshrc" "$HOME/.zshrc"
-  echo "Symlinked $(pwd)/.zshrc to $HOME/.zshrc"
+  # Symlink .zshrc from script directory to home directory
+  ln -sf "${SCRIPT_DIR}/.zshrc" "$HOME/.zshrc"
+  echo "Symlinked ${SCRIPT_DIR}/.zshrc to $HOME/.zshrc"
 }
 
 # --- CONFIGURE STARSHIP ---
@@ -174,8 +196,8 @@ configure_starship() {
   
   mkdir -p "$HOME/.config/starship"
   
-  # Symlink starship.toml from current directory to .config/starship
-  ln -sf "$(pwd)/starship/starship.toml" "$HOME/.config/starship/starship.toml"
+  # Symlink starship.toml from script directory to .config/starship
+  ln -sf "${SCRIPT_DIR}/starship/starship.toml" "$HOME/.config/starship/starship.toml"
   echo "Symlinked starship.toml to $HOME/.config/starship/starship.toml"
 }
 
@@ -192,9 +214,9 @@ configure_neovim() {
     mv "$HOME/.config/nvim" "$HOME/.config/nvim.backup"
   fi
   
-  # Symlink nvim directory from current directory to .config/nvim
-  ln -sf "$(pwd)/nvim" "$HOME/.config/nvim"
-  echo "Symlinked $(pwd)/nvim to $HOME/.config/nvim"
+  # Symlink nvim directory from script directory to .config/nvim
+  ln -sf "${SCRIPT_DIR}/nvim" "$HOME/.config/nvim"
+  echo "Symlinked ${SCRIPT_DIR}/nvim to $HOME/.config/nvim"
 }
 
 # --- MAIN EXECUTION ---
