@@ -46,7 +46,6 @@ install_packages_alpine() {
     nodejs \
     npm \
     zsh \
-    yazi \
     starship
   
   echo "All packages installed successfully."
@@ -122,7 +121,7 @@ install_packages() {
   
   # Install packages (using consistent names across all platforms)
   echo "Installing development tools..."
-  brew install neovim git curl wget node zsh yazi starship
+  brew install neovim git curl wget node zsh starship
   
   echo "All packages installed successfully."
 }

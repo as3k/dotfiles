@@ -11,7 +11,7 @@ Personal development environment configuration repository. This project manages 
 - **Version Control**: Git
 - **Containerization**: Docker and Docker Compose
 - **Package Management**: Homebrew (macOS), apt (Linux)
-- **Terminal Tools**: yazi (file manager), tmux (multiplexer)
+- **Terminal Tools**: tmux (multiplexer)
 - **Additional Tools**: Lando, VS Code CLI integration
 
 ## Project Conventions

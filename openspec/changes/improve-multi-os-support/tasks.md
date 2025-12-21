@@ -9,7 +9,7 @@
 ## 2. Homebrew-First Package Manager Strategy
 - [x] 2.1 Check if Homebrew is installed on the system
 - [x] 2.2 Install Homebrew/Linuxbrew if not present (works on macOS and all Linux distros)
-- [x] 2.3 Use Homebrew as primary package manager for all tools (neovim, git, curl, wget, nodejs, yazi, etc.)
+- [x] 2.3 Use Homebrew as primary package manager for all tools (neovim, git, curl, wget, nodejs, etc.)
 - [x] 2.4 Keep native package managers (apk, apt) only for system dependencies that Homebrew requires (e.g., build-base on Alpine)
 - [x] 2.5 Ensure Homebrew shellenv is properly configured for Linux systems
 

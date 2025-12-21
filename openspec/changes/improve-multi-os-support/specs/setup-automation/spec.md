@@ -64,7 +64,7 @@ The setup script SHALL install all development tools through Homebrew for consis
 
 #### Scenario: Install core dependencies via Homebrew
 - **WHEN** installing development tools on any supported OS
-- **THEN** it SHALL use Homebrew to install zsh, neovim, git, curl, wget, node, and yazi with identical commands
+- **THEN** it SHALL use Homebrew to install zsh, neovim, git, curl, wget, node, and starship with identical commands
 
 #### Scenario: Configure Homebrew PATH on Linux
 - **WHEN** running on Linux systems
