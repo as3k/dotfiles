@@ -76,3 +76,13 @@ alias epoch="date -r"
 alias uu="apt update && apt upgrade -y"
 alias bu="brew update && brew upgrade"
 
+### --- TMUX ---
+alias tma="tmux attach -t"
+alias tmn="tmux new -s"
+alias tmls="tmux ls"
+alias tmks="tmux kill-session -t"
+
+### --- openspec --- 
+alias ospop="printf '%s\n' 'Please read openspec/project.md and help me fill it out with details about my project, tech stack, and conventions'"
+alias oshow="printf '%s\n' 'Please explain the OpenSpec workflow from openspec/AGENTS.md and how I should work with you on this project'"
+
