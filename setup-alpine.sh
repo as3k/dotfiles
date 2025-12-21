@@ -69,8 +69,10 @@ if [ -d "$HOME/.config/nvim" ]; then
   mv "$HOME/.config/nvim" "$HOME/.config/nvim.backup"
 fi
 
-ln -sf "${SCRIPT_DIR}/nvim" "$HOME/.config/nvim"
-echo "Symlinked ${SCRIPT_DIR}/nvim to $HOME/.config/nvim"
+# Create nvim directory and use minimal config for old Neovim versions
+mkdir -p "$HOME/.config/nvim"
+ln -sf "${SCRIPT_DIR}/init-alpine.vim" "$HOME/.config/nvim/init.vim"
+echo "Installed minimal Neovim config (compatible with Neovim 0.4.x)"
 
 echo ""
 
@@ -81,8 +83,9 @@ echo "========================================="
 echo ""
 echo "Next steps:"
 echo "  1. Run 'zsh' to start using Zsh"
-echo "  2. Open Neovim with 'nvim' and run ':Lazy' to install plugins"
+echo "  2. Neovim is ready to use with 'nvim'"
 echo ""
 echo "This is a minimal setup optimized for Alpine/iSH."
-echo "For full features, use setup.sh on standard Linux systems."
+echo "Uses basic Neovim config (no plugins) due to old Neovim version."
+echo "For full features with lazy.nvim, use setup.sh on systems with Neovim 0.8+"
 echo ""

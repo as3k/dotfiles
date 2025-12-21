@@ -93,12 +93,15 @@ For Alpine Linux or iSH on iOS, use the lightweight setup:
    - Installs only essential packages (git, zsh, neovim, curl)
    - Uses a simple built-in prompt (no Starship for better performance)
    - Includes all your aliases
+   - Uses basic Neovim config (no plugins) compatible with old Neovim versions
    - Perfect for iSH on iOS or minimal containers
 
 3. **Start using Zsh:**
    ```sh
    zsh
    ```
+
+**Note:** Alpine 3.14.3 (used by iSH) has Neovim 0.4.4, which doesn't support lazy.nvim. The minimal setup uses a basic vimrc-style configuration with essential features but no plugins.
 
 
 ## 🛠 Customizing
