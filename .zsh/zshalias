@@ -86,3 +86,5 @@ alias tmks="tmux kill-session -t"
 alias ospop="printf '%s\n' 'Please read openspec/project.md and help me fill it out with details about my project, tech stack, and conventions'"
 alias oshow="printf '%s\n' 'Please explain the OpenSpec workflow from openspec/AGENTS.md and how I should work with you on this project'"
 
+
+alias ytscript='yt-dlp --write-auto-sub --sub-lang en --sub-format vtt --skip-download'
