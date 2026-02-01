@@ -32,23 +32,50 @@ detect_os() {
   fi
 }
 
+# --- CHECK IF PACKAGE IS INSTALLED ON ALPINE ---
+check_package_alpine() {
+  local package=$1
+  apk info --installed "$package" >/dev/null 2>&1
+}
+
 # --- INSTALL PACKAGES ON ALPINE ---
 install_packages_alpine() {
-  echo "Installing packages via Alpine package manager (apk)..."
+  echo "Checking packages via Alpine package manager (apk)..."
   
-  apk update
-  apk add --no-cache \
-    bash \
-    curl \
-    wget \
-    git \
-    neovim \
-    nodejs \
-    npm \
-    zsh \
-    starship
+  # List of packages to check/install
+  local packages=(
+    "bash"
+    "curl"
+    "wget"
+    "git"
+    "neovim"
+    "nodejs"
+    "npm"
+    "zsh"
+    "starship"
+  )
   
-  echo "All packages installed successfully."
+  local packages_to_install=()
+  
+  # Check which packages are missing
+  for package in "${packages[@]}"; do
+    if check_package_alpine "$package"; then
+      echo "✓ $package is already installed"
+    else
+      echo "✗ $package is not installed"
+      packages_to_install+=("$package")
+    fi
+  done
+  
+  # Install missing packages
+  if [ ${#packages_to_install[@]} -gt 0 ]; then
+    echo "Installing missing packages: ${packages_to_install[*]}"
+    apk update
+    apk add --no-cache "${packages_to_install[@]}"
+    echo "All missing packages installed successfully."
+  else
+    echo "All Alpine packages are already installed."
+  fi
 }
 
 # --- INSTALL SYSTEM PREREQUISITES FOR HOMEBREW ---
@@ -105,6 +132,12 @@ install_homebrew() {
   echo "Homebrew installed successfully."
 }
 
+# --- CHECK IF PACKAGE IS INSTALLED VIA HOMEBREW ---
+check_package_brew() {
+  local package=$1
+  brew list "$package" >/dev/null 2>&1
+}
+
 # --- INSTALL PACKAGES VIA HOMEBREW ---
 install_packages() {
   # Use Alpine's native package manager on Alpine Linux
@@ -113,17 +146,41 @@ install_packages() {
     return 0
   fi
   
-  echo "Installing packages via Homebrew..."
+  echo "Checking packages via Homebrew..."
   
-  # Update Homebrew
+  # List of packages to check/install
+  local packages=(
+    "neovim"
+    "git"
+    "curl"
+    "wget"
+    "node"
+    "zsh"
+    "starship"
+  )
+  
+  local packages_to_install=()
+  
+  # Check which packages are missing
+  for package in "${packages[@]}"; do
+    if check_package_brew "$package"; then
+      echo "✓ $package is already installed"
+    else
+      echo "✗ $package is not installed"
+      packages_to_install+=("$package")
+    fi
+  done
+  
   brew update
-  brew upgrade
   
-  # Install packages (using consistent names across all platforms)
-  echo "Installing development tools..."
-  brew install neovim git curl wget node zsh starship
-  
-  echo "All packages installed successfully."
+  # Install missing packages
+  if [ ${#packages_to_install[@]} -gt 0 ]; then
+    echo "Installing missing packages: ${packages_to_install[*]}"
+    brew install "${packages_to_install[@]}"
+    echo "All missing packages installed successfully."
+  else
+    echo "All Homebrew packages are already installed."
+  fi
 }
 
 # --- CONFIGURE ZSH ---
@@ -131,41 +188,43 @@ configure_zsh() {
   echo "Configuring Zsh..."
   
   # Make zsh the default shell if it's not already
-  if [ "$SHELL" != "$(command -v zsh)" ]; then
+  local zsh_path
+  zsh_path="$(command -v zsh)"
+  
+  if [ "$SHELL" != "$zsh_path" ]; then
     echo "Changing default shell to zsh..."
     
-    # Check if chsh command exists
-    if command -v chsh >/dev/null 2>&1; then
-      ZSH_PATH="$(command -v zsh)"
+      # Check if chsh command exists
+      if command -v chsh >/dev/null 2>&1; then
       
-      # Add zsh to /etc/shells if not present (needed for chsh on some systems)
-      if [ -f /etc/shells ] && ! grep -q "^${ZSH_PATH}$" /etc/shells 2>/dev/null; then
-        echo "Adding ${ZSH_PATH} to /etc/shells..."
-        echo "${ZSH_PATH}" | sudo tee -a /etc/shells >/dev/null 2>&1 || echo "Warning: Could not add zsh to /etc/shells"
-      fi
-      
-      # Try to change shell
-      if chsh -s "${ZSH_PATH}" 2>/dev/null; then
-        echo "Default shell changed to zsh"
-      else
-        echo "Warning: Could not change default shell. You may need to run 'chsh -s ${ZSH_PATH}' manually."
-      fi
+        # Add zsh to /etc/shells if not present (needed for chsh on some systems)
+        if [ -f /etc/shells ] && ! grep -q "^${zsh_path}$" /etc/shells 2>/dev/null; then
+          echo "Adding ${zsh_path} to /etc/shells..."
+          echo "${zsh_path}" | sudo tee -a /etc/shells >/dev/null 2>&1 || echo "Warning: Could not add zsh to /etc/shells"
+        fi
+        
+        # Try to change shell
+        if chsh -s "${zsh_path}" 2>/dev/null; then
+          echo "✓ Default shell changed to zsh"
+        else
+          echo "Warning: Could not change default shell. You may need to run 'chsh -s ${zsh_path}' manually."
+        fi
     else
-      echo "Warning: chsh command not found. Skipping shell change. You can manually run 'chsh -s \$(which zsh)' later."
+      echo "Warning: chsh command not found. Skipping shell change. You can manually run 'chsh -s ${zsh_path}' later."
     fi
   else
-    echo "Zsh is already the default shell."
+    echo "✓ Zsh is already the default shell."
   fi
   
   # Backup existing .zshrc if it exists
   if [ -f "$HOME/.zshrc" ]; then
-    echo "Backing up existing .zshrc to .zshrc.backup"
+    echo "✓ Backing up existing .zshrc to .zshrc.backup"
     mv "$HOME/.zshrc" "$HOME/.zshrc.backup"
   fi
   
   # Symlink .zshrc from script directory to home directory
   ln -sf "${SCRIPT_DIR}/.zshrc" "$HOME/.zshrc"
-  echo "Symlinked ${SCRIPT_DIR}/.zshrc to $HOME/.zshrc"
+  echo "✓ Symlinked ${SCRIPT_DIR}/.zshrc to $HOME/.zshrc"
 }
 
 # --- CONFIGURE STARSHIP ---
@@ -174,13 +233,13 @@ configure_starship() {
   
   # Check if Starship is installed
   if command -v starship >/dev/null 2>&1; then
-    echo "Starship is already installed."
+    echo "✓ Starship is already installed."
   else
     # Skip installation on Alpine since it's handled by apk
     if [ "$OS_DISTRO" != "alpine" ]; then
       echo "Installing Starship..."
       curl -sS https://starship.rs/install.sh | sh -s -- -y
-      echo "Starship installed."
+      echo "✓ Starship installed."
     fi
   fi
   
@@ -189,7 +248,7 @@ configure_starship() {
   
   # Check if .config/starship directory exists
   if [ -d "$HOME/.config/starship" ]; then
-    echo "Backing up existing .config/starship to .config/starship.backup"
+    echo "✓ Backing up existing .config/starship to .config/starship.backup"
     mv "$HOME/.config/starship" "$HOME/.config/starship.backup"
   fi
   
@@ -197,7 +256,7 @@ configure_starship() {
   
   # Symlink starship.toml from script directory to .config/starship
   ln -sf "${SCRIPT_DIR}/starship/starship.toml" "$HOME/.config/starship/starship.toml"
-  echo "Symlinked starship.toml to $HOME/.config/starship/starship.toml"
+  echo "✓ Symlinked starship.toml to $HOME/.config/starship/starship.toml"
 }
 
 # --- CONFIGURE NEOVIM ---
@@ -209,13 +268,13 @@ configure_neovim() {
   
   # Check if nvim directory exists in .config
   if [ -d "$HOME/.config/nvim" ]; then
-    echo "Backing up existing .config/nvim to .config/nvim.backup"
+    echo "✓ Backing up existing .config/nvim to .config/nvim.backup"
     mv "$HOME/.config/nvim" "$HOME/.config/nvim.backup"
   fi
   
   # Symlink nvim directory from script directory to .config/nvim
   ln -sf "${SCRIPT_DIR}/nvim" "$HOME/.config/nvim"
-  echo "Symlinked ${SCRIPT_DIR}/nvim to $HOME/.config/nvim"
+  echo "✓ Symlinked ${SCRIPT_DIR}/nvim to $HOME/.config/nvim"
 }
 
 # --- MAIN EXECUTION ---
