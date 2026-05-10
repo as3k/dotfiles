@@ -27,21 +27,23 @@ alias flushdns="sudo dscacheutil -flushcache; sudo killall -HUP mDNSResponder"
 alias gst="git status"
 alias add="git add ."
 alias commit="git commit -m"
-alias gco="git checkout"
+alias checkout="git checkout"
 alias branch="git branch"
-alias gd="git diff"
-alias pull="git pull origin"
-alias push="git push origin"
-alias gl="git log --oneline --graph --all"
+alias diff="git diff"
+alias pull="git pull"
+alias push="git push"
+alias glog="git log --oneline --decorate --graph --all"
 alias gra="git remote add "
 alias gpsu="git push -u origin $(git rev-parse --abbrev-ref HEAD)"
 
 ### --- DOCKER / DEV ---
+alias dc="docker compose"
 alias dcu="docker compose up"
 alias dcd="docker compose down"
 alias dcb="docker compose build"
 alias dcr="docker compose run --rm"
-alias dcl="docker compose logs -f"
+alias dcl="docker compose logs"
+alias dclf="docker compose logs -f"
 alias dcps="docker compose ps"
 alias dcx="docker compose exec"
 alias dps="docker ps"
@@ -88,3 +90,7 @@ alias oshow="printf '%s\n' 'Please explain the OpenSpec workflow from openspec/A
 
 
 alias ytscript='yt-dlp --write-auto-sub --sub-lang en --sub-format vtt --skip-download'
+
+### --- SSH ---
+alias mscloud="/Users/zg/.ssh/ssh-mscloud.sh"
+alias oc="opencode"
