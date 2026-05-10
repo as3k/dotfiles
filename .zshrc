@@ -267,4 +267,4 @@ export PATH=/Users/zg/.opencode/bin:$PATH
 # Open SSH tunnel to msstage MySQL (port 3306) — connect any MySQL client to 127.0.0.1:3306
 alias msstage-db='ssh -f -L 3306:127.0.0.1:3306 msstage -N && echo "msstage tunnel up on 3306"'
 export EDITOR=nvim
-# export LINEAR_API_KEY=... set via env or secrets
+[ -f ~/.secrets ] && source ~/.secrets

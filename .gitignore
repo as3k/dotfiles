@@ -12,3 +12,4 @@ nvim/*.log
 nvim/data
 
 .opencode
+.secrets
