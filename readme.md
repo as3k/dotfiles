@@ -116,7 +116,7 @@ For Alpine Linux or iSH on iOS, use the lightweight setup:
 - **Backups**: Your current .zshrc, Starship config, and Neovim config will be backed up before any changes are made
 - **Neovim LSP**: You may need to install additional language servers depending on what you're working on
 - **Docker-friendly**: Works great in Alpine-based containers for consistent dev environments
-- **Shell Changes**: The script will attempt to change your default shell to Zsh. On some systems, you may need to do this manually with `chsh -s $(which zsh)`.
+- **Shell Changes**: To avoid hanging on password prompts, the script only changes your default shell automatically when running as root. Otherwise, run `chsh -s $(which zsh)` manually if you want Zsh as your login shell.
 - **Idempotent**: Safe to run multiple times - the script detects existing installations
 
 ## 🧰 Troubleshooting

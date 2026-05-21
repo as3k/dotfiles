@@ -187,28 +187,43 @@ install_packages() {
 configure_zsh() {
   echo "Configuring Zsh..."
   
-  # Make zsh the default shell if it's not already
+  # Make zsh the default shell if it's not already.
+  # Keep this non-interactive: chsh/sudo can otherwise appear to hang while
+  # waiting for a password prompt during unattended setup runs.
   local zsh_path
-  zsh_path="$(command -v zsh)"
+  zsh_path="$(command -v zsh || true)"
   
-  if [ "$SHELL" != "$zsh_path" ]; then
+  if [ -z "$zsh_path" ]; then
+    echo "Warning: zsh is not installed or not in PATH. Skipping shell change."
+  elif [ "$SHELL" != "$zsh_path" ]; then
     echo "Changing default shell to zsh..."
     
-      # Check if chsh command exists
-      if command -v chsh >/dev/null 2>&1; then
+    # Check if chsh command exists
+    if command -v chsh >/dev/null 2>&1; then
       
-        # Add zsh to /etc/shells if not present (needed for chsh on some systems)
-        if [ -f /etc/shells ] && ! grep -q "^${zsh_path}$" /etc/shells 2>/dev/null; then
-          echo "Adding ${zsh_path} to /etc/shells..."
-          echo "${zsh_path}" | sudo tee -a /etc/shells >/dev/null 2>&1 || echo "Warning: Could not add zsh to /etc/shells"
+      # Add zsh to /etc/shells if not present (needed for chsh on some systems)
+      if [ -f /etc/shells ] && ! grep -q "^${zsh_path}$" /etc/shells 2>/dev/null; then
+        echo "Adding ${zsh_path} to /etc/shells..."
+        if [ "$(id -u)" -eq 0 ]; then
+          echo "${zsh_path}" >> /etc/shells 2>/dev/null || echo "Warning: Could not add zsh to /etc/shells"
+        elif command -v sudo >/dev/null 2>&1; then
+          echo "${zsh_path}" | sudo -n tee -a /etc/shells >/dev/null 2>&1 || echo "Warning: Could not add zsh to /etc/shells without an interactive sudo prompt"
+        else
+          echo "Warning: sudo not found; could not add zsh to /etc/shells"
         fi
-        
-        # Try to change shell
-        if chsh -s "${zsh_path}" 2>/dev/null; then
+      fi
+
+      # Only run chsh automatically as root. For normal users, chsh commonly prompts
+      # for a password and can look like the setup is hung.
+      if [ "$(id -u)" -eq 0 ]; then
+        if chsh -s "${zsh_path}" </dev/null 2>/dev/null; then
           echo "✓ Default shell changed to zsh"
         else
-          echo "Warning: Could not change default shell. You may need to run 'chsh -s ${zsh_path}' manually."
+          echo "Warning: Could not change default shell non-interactively. Run 'chsh -s ${zsh_path}' manually if you want zsh as your login shell."
         fi
+      else
+        echo "Skipping automatic shell change to avoid an interactive password prompt. Run 'chsh -s ${zsh_path}' manually if you want zsh as your login shell."
+      fi
     else
       echo "Warning: chsh command not found. Skipping shell change. You can manually run 'chsh -s ${zsh_path}' later."
     fi

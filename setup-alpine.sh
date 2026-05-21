@@ -39,19 +39,28 @@ fi
 ln -sf "${SCRIPT_DIR}/.zshrc-alpine" "$HOME/.zshrc"
 echo "Symlinked ${SCRIPT_DIR}/.zshrc-alpine to $HOME/.zshrc"
 
-# Try to change default shell
+# Try to change default shell, but keep it non-interactive so setup does not
+# appear to hang while chsh waits for a password prompt.
 if command -v chsh >/dev/null 2>&1; then
-  ZSH_PATH="$(command -v zsh)"
+  ZSH_PATH="$(command -v zsh || true)"
   
-  if [ -f /etc/shells ] && ! grep -q "^${ZSH_PATH}$" /etc/shells 2>/dev/null; then
-    echo "Adding ${ZSH_PATH} to /etc/shells..."
-    echo "${ZSH_PATH}" >> /etc/shells 2>/dev/null || echo "Warning: Could not add zsh to /etc/shells"
-  fi
-  
-  if chsh -s "${ZSH_PATH}" 2>/dev/null; then
-    echo "Default shell changed to zsh"
+  if [ -z "$ZSH_PATH" ]; then
+    echo "Note: zsh is not in PATH; skipping default shell change"
   else
-    echo "Note: Run 'chsh -s ${ZSH_PATH}' to set zsh as default shell"
+    if [ -f /etc/shells ] && ! grep -q "^${ZSH_PATH}$" /etc/shells 2>/dev/null; then
+      echo "Adding ${ZSH_PATH} to /etc/shells..."
+      echo "${ZSH_PATH}" >> /etc/shells 2>/dev/null || echo "Warning: Could not add zsh to /etc/shells"
+    fi
+
+    if [ "$(id -u)" -eq 0 ]; then
+      if chsh -s "${ZSH_PATH}" </dev/null 2>/dev/null; then
+        echo "Default shell changed to zsh"
+      else
+        echo "Note: Run 'chsh -s ${ZSH_PATH}' to set zsh as default shell"
+      fi
+    else
+      echo "Skipping automatic shell change to avoid an interactive password prompt. Run 'chsh -s ${ZSH_PATH}' manually to set zsh as your login shell."
+    fi
   fi
 else
   echo "Note: chsh not available, manually set shell with: chsh -s \$(which zsh)"
